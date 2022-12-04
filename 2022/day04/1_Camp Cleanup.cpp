@@ -11,7 +11,7 @@ struct assignment {
 
 int main()
 {
-    auto count {0};
+    auto count {0}, overlaps {0};
     struct assignment alice, bob;
     char any;
 
@@ -23,6 +23,13 @@ int main()
 	    ++count;
 	else if (alice.lo > bob.lo && alice.hi < bob.hi)
 	    ++count;
+	else if (bob.lo < alice.lo && alice.lo <= bob.hi)
+	    ++overlaps;
+	else if (bob.lo <= alice.hi && alice.hi < bob.hi)
+	    ++overlaps;
     }
-    std::cout << count << std::endl;
+    std::cout << "In how many assignment pairs does one range fully contain the other? "
+    	<< count << std::endl
+    	<< "In how many assignment pairs do the ranges overlap? "
+    	<< count + overlaps << std::endl;
 }
