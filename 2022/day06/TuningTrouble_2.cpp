@@ -16,7 +16,7 @@ static size_t find_double(const std::string &buffer, size_t &from, const size_t 
 {
     for (size_t i = from; i < to; ++i)
     	if (first_unique(buffer, i, to) == 0) {
-    	    from = i;
+    	    from = i; // optimization
     	    return 1;
 	}
     return 0;
@@ -24,7 +24,7 @@ static size_t find_double(const std::string &buffer, size_t &from, const size_t 
 
 int main()
 {
-    constexpr size_t length = 14;
+    constexpr size_t length = 14; // part 1: length=4
     std::string buffer;
     std::getline(std::cin, buffer);
     for (size_t i = 0; i <= buffer.size() - length; ++i) {
