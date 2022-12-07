@@ -32,12 +32,15 @@ class Directory {
     Directory* get_subdir(std::string dname);
     int get_size() { return size; }
     int get_answer(int max_size);
+    int smallest_sufficient(int min_size);
 };
+
+constexpr int capacity = 70000000;
 
 
 int main()
 {
-    constexpr int max = 100000;
+    constexpr int max = 100000, needed = 30000000;
 
     Directory *current = nullptr, *root = nullptr;
     std::string line;
@@ -63,7 +66,9 @@ int main()
 	}
     }
     root->calculate_size();
-    std::cout << root->get_answer(max) << std::endl;
+    std::cout << "Sum of small durs: " << root->get_answer(max) << std::endl;
+    int to_free = root->get_size() + needed - capacity;
+    std::cout << "Size of smallest big enough: " << root->smallest_sufficient(to_free) << std::endl;
     delete root;
 }
 
@@ -95,4 +100,17 @@ int Directory::get_answer(int max_size)
     for (auto&& i : subdirs)
     	answer += i->get_answer(max_size);
     return answer;
+}
+
+int Directory::smallest_sufficient(int min_size)
+{
+    int sssize = capacity;
+    if (size < min_size)
+    	return sssize;
+    for (auto i : subdirs) {
+    	int subsize = i->smallest_sufficient(min_size);
+    	if (subsize < sssize)
+    	    sssize = subsize;
+    }
+    return size < sssize ? size : sssize;
 }
