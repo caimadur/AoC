@@ -66,7 +66,7 @@ int main()
 	}
     }
     root->calculate_size();
-    std::cout << "Sum of small durs: " << root->get_answer(max) << std::endl;
+    std::cout << "Sum of small dirs: " << root->get_answer(max) << std::endl;
     int to_free = root->get_size() + needed - capacity;
     std::cout << "Size of smallest big enough: " << root->smallest_sufficient(to_free) << std::endl;
     delete root;
