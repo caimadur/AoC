@@ -9,7 +9,7 @@ struct Knot {
     int y;
     Knot() : x(0), y(0) {}
     Knot(Knot const & k) : x(k.x), y(k.y) {}
-    Knot(const int a, const int b) : x(a), y(b) {}
+    Knot(const int & a, const int & b) : x(a), y(b) {}
 };
 
 
